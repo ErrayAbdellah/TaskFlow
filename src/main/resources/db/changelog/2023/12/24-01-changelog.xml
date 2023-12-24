@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1703438201456-1" author="ERRAY (generated)">
+        <createTable tableName="tag">
+            <column name="id" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_tag"/>
+            </column>
+            <column name="tag_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703438201456-2" author="ERRAY (generated)">
+        <createTable tableName="task">
+            <column name="id" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_task"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="created_date" type="DATETIME"/>
+            <column name="due_date" type="DATETIME"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="userid" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703438201456-3" author="ERRAY (generated)">
+        <createTable tableName="task_history">
+            <column name="id" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_taskhistory"/>
+            </column>
+            <column name="changed_on" type="DATETIME"/>
+            <column name="previous_status" type="VARCHAR(255)"/>
+            <column name="new_status" type="VARCHAR(255)"/>
+            <column name="taskid" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703438201456-4" author="ERRAY (generated)">
+        <createTable tableName="task_tags">
+            <column name="tagid" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taskid" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703438201456-5" author="ERRAY (generated)">
+        <createTable tableName="token">
+            <column name="id" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_token"/>
+            </column>
+            <column name="token_type" type="VARCHAR(255)"/>
+            <column name="expiry_date" type="DATETIME"/>
+            <column name="userid" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703438201456-6" author="ERRAY (generated)">
+        <createTable tableName="user">
+            <column name="id" type="binary(16)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703438201456-7" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="taskid" baseTableName="task_history"
+                                 constraintName="FK_TASKHISTORY_ON_TASKID" referencedColumnNames="id"
+                                 referencedTableName="task"/>
+    </changeSet>
+    <changeSet id="1703438201456-8" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="userid" baseTableName="task" constraintName="FK_TASK_ON_USERID"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1703438201456-9" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="userid" baseTableName="token" constraintName="FK_TOKEN_ON_USERID"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1703438201456-10" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="tagid" baseTableName="task_tags" constraintName="fk_task_tags_on_tag"
+                                 referencedColumnNames="id" referencedTableName="tag"/>
+    </changeSet>
+    <changeSet id="1703438201456-11" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="taskid" baseTableName="task_tags"
+                                 constraintName="fk_task_tags_on_task" referencedColumnNames="id"
+                                 referencedTableName="task"/>
+    </changeSet>
+
+</databaseChangeLog>
