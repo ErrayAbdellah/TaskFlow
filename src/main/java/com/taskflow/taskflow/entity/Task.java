@@ -1,5 +1,6 @@
 package com.taskflow.taskflow.entity;
 
+import com.taskflow.taskflow.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -27,7 +28,8 @@ public class Task {
     private String description;
     private Date createdDate;
     private Date dueDate;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "userID", nullable = false)

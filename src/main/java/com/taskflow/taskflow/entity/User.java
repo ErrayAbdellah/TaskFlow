@@ -29,6 +29,8 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
+    private int modificationTokens;
+    private int deletionTokens;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Token> tokens;
